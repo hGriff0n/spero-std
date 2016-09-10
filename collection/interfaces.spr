@@ -1,4 +1,4 @@
-mod std:collections
+mod std:collection
 
 # Interfaces
 def Iterator[T] = {

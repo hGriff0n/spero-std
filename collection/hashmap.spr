@@ -1,5 +1,4 @@
-mod std:collections
-
+mod std:collection
 
 # Hash map
 def HashMap[K, V] = Map[K, V] {

@@ -1,0 +1,59 @@
+mod std:collections
+
+# Linked List
+def List[T] = {
+    use Seq[T]
+
+    let ls :: mut Node[T] = Sentinel
+    let siz = mut 0
+
+    def get = (i :: Size) {
+
+    }
+
+    @mutable {
+        def set = (i :: Size, v :: T) {
+
+        }
+
+        def add = (v :: T) {
+
+        }
+    }
+
+    def iter = () -> ListIter
+    def len = () -> siz
+    
+    @safe
+    let ListIter = {
+        let it = mut ls.ref
+
+        def hasNext = () -> &it.next .match {
+            Some(s) -> true
+            None -> false
+        }
+
+        def next = () {
+            if hasNext {
+                let tmp = &cur
+                cur = tmp.next.ref
+                Ok(cur.get)
+            } else
+                Error("Attempt to call next on exhausted iterator")
+        }
+    }
+
+    def Node = Sentinel | (elem :: mut T) {
+        let nxt = mut Sentinel
+
+        @mutable
+        def insert = (n :: Node) {
+            let next = nxt
+            nxt = n
+            n.nxt = next
+        }
+
+        def next = () -> nxt
+        def get = () -> elem
+    }
+}

@@ -1,0 +1,72 @@
+mod std:collections
+
+# Growable array
+def Vector[T] = (capacity :: mut Size) {
+    use Seq[T]
+
+    let arr = mut Array[T](capacity)
+    let siz :: Size = mut 0
+    let iter = mut false
+
+    # Implement Indexable methods
+    def get = (i :: Size) {
+        if i < siz arr.at(i)
+        else Error("Out of range")
+    }
+
+    # Apply the mutable annotation to all the "enclosed" functions
+        # The functions are still declared in the type scope
+    @mutable {
+        def set = (i :: Size, v :: T) {
+            if i < siz arr.set(i, v)
+            else Error("Out of range")
+        }
+
+        def push = (v :: T) {
+            if siz == capacity
+                arr = mut Array[T](capacity *= 2).copy(arr)
+
+            arr(siz) = v
+            siz += 1
+        }
+
+        def pop = () {
+            if siz > 0 {
+                siz -= 1
+                let tmp = arr(siz)
+                T:delete(&arr.at(siz))
+                tmp
+            }
+        }
+
+        # Overloading pop if a return value is not needed
+        def pop = () {
+            pop() :: T
+            ()
+        }
+    }
+
+    # Implement Iterable methods
+    def iter = () -> VecIter
+    def len = () -> siz
+
+    def VecIter = {
+        let cur = mut 0
+        iter = true                                 # "Borrow" the calling vector so it can't be modified
+                                                    # So VecIter can only be created from a mutable Vector ???
+
+        def hasNext = () -> cur < siz
+        
+        @mutable
+        def next = () {
+            if hasNext {
+                let tmp = cur
+                cur += 1 # or T.size
+                arr(cur)
+            } else
+                Error("Attempt to call next on exhausted iterator")
+        }
+
+        static delete = (mut VecIter) -> iter = false
+    }
+}

@@ -1,0 +1,38 @@
+mod std:collections
+
+# Interfaces
+def Iterator[T] = {
+    @mutable
+    def next :: () -> Result[T]
+    def hasNext :: () -> Bool
+}
+
+@todo("Figure out how a way to specify a protected member in a child class")
+def Indexable[K, V] = {
+    #let at :: (K) -> Result[V&]             # set and get can be implemented in terms of at (just need a way to specify at in child types)
+
+    def get :: (K) -> Result[V]              # Handle regular indexing
+
+    @mutable
+    def set :: (K, V) -> Result[V]           # Handle mutable indexing
+
+    #@mutable
+    #def mget :: (K) -> Result[mut V&]
+
+    #@mutable
+    #def mset :: (K, V) -> Result[mut V&]
+}
+
+# TODO: Figure out the purpose of this interface (is it just to be able to use Iterator methods directly on Objects that can produce an iterator)
+def Iterable[T] = {
+    def iter :: () -> Iterator[T]
+}
+
+def Seq[T] = {
+    use {Iterable[T], Indexable[Size, T]}
+}
+
+def Map[K, V] = {
+    use Iterable[(K, V)]
+    use Indexable[K, V]
+}

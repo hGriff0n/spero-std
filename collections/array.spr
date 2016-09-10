@@ -1,0 +1,66 @@
+mod std:collections
+
+use std:mem
+use std:adt:*
+
+# Array
+@explicit                                   # Make "size" constructor explicit ???
+def Array[T] = (n :: Size) {
+    use Seq[T]
+
+    #let arr = mut mem:alloc[mut T](n)      # Which one gives the correct mutability characteristics
+    #let arr = mem:alloc[mut T](n)
+    let arr = mut mem:alloc[T](n)           # Allocate space for n T's
+    @todo("What should the behavior of 'mem:alloc' be in regards to initialization ???")
+
+    # Implementing Indexable methods
+    def get = (i :: Size) {
+        if i < n Ok(arr.sub(i))
+        else Error("Out of range")
+    }
+    
+    @mutable
+    def set = (i :: Size, v :: T) {
+        if i < n {
+            # &arr.sub(i) = v               The '&' binds to the expression 'arr' -> Because this translates to Chunk[T]:sub(&arr, i)
+            # &(arr.sub(i)) = v             The '&' binds to the expression 'arr.sub(i)'
+            arr.sub(i) &= v                 # Equivalent to the above line (can I extend this to '.' ???)
+            Ok(v)
+        } else
+            Error("Out of range")
+    }
+
+    # Implementing Iterable methods
+    def iter = () -> ArrayIter
+    def len = () -> arr.size / T.size
+
+    def ArrayIter = {
+        let cur = mut arr.sub(0)
+        let end = arr.end
+
+        def hasNext = () -> cur.addr < end.addr
+
+        @mutable
+        def next = () {
+            if hasNext {
+                let tmp = cur
+                cur += T.size               # TODO: Figure out how cur will get "moved" along
+                Ok(tmp)
+            } else
+                Error("Attempt to call next on exhausted iterator")
+        }
+    }
+
+    # Note: This doesn't collide with Array[T, n]:new(T*)
+    static new = (vals :: T*) -> Array[T] {
+        let arr = mem:calloc(vals)          # Copy-allocate vals
+    }
+}
+
+# Array Literal (ie. [a, b, c])
+def Array[T, n] = (vals :: T*) Array[T] {
+    let arr = mem:calloc(vals)              # Copy-allocate the vals
+
+    @pure                                   # What is the 'pure' tag going to stand for (statically known or unchanging) ???
+    def len = () -> n
+}

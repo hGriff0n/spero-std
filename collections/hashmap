@@ -1,0 +1,7 @@
+mod std:collections
+
+
+# Hash map
+def HashMap[K, V] = Map[K, V] {
+
+}

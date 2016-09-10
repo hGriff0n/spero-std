@@ -1,0 +1,6 @@
+mod std:collections
+
+# Tree map
+def TreeMap[K, V] = Map[K, V] {
+    
+}

@@ -1,4 +1,6 @@
-mod std:collection
+mod std:util
+
+# These don't quite work in std:util or in std:lang:prelude
 
 # Interfaces
 def Iterator[T] = {

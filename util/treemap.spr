@@ -1,6 +1,4 @@
-mod std:collection
-
-use std:collection:Tree
+mod std:util
 
 # Tree map
 def TreeMap[K, V] = Map[K, V] {

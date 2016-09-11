@@ -1,10 +1,10 @@
-mod std:collection
+mod std:util
 
-use std:mem
+use std:lang:mem
 use std:adt:*
 
 # Array
-@explicit                                   # Make "size" constructor explicit ???
+@primary(explicit)
 def Array[T] = (n :: Size) {
     use Seq[T]
 
@@ -34,7 +34,7 @@ def Array[T] = (n :: Size) {
     def iter = () -> ArrayIter
     def len = () -> arr.size / T.size
 
-    def ArrayIter = {
+    def ArrayIter = Iterator[T]{
         let cur = mut arr.sub(0)
         let end = arr.end
 

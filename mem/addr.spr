@@ -1,0 +1,8 @@
+mod std:mem
+
+@explicit
+def Addr = (addr :: Size) {
+    
+}
+
+def reserve = (addr :: Addr) -> {}

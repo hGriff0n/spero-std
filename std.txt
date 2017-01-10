@@ -1,0 +1,29 @@
+Collections
+  Iterable[T]
+  Indexable[K, V]
+  Iterator[T]
+  Array[T], Array[T, n]
+  Vector[T]
+  Map[K, V]
+  List[T]
+  Set[T]
+
+String
+  fmt
+
+Memory
+  Addr
+  Chunk, Chunk[T], Chunk[n]
+  alloc, free
+
+Math
+
+IO
+  File
+  println/print
+  getln/get
+  writeln/write
+  readln/read
+  
+
+System

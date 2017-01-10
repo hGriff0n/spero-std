@@ -1,0 +1,37 @@
+mod std:mem
+
+@explicit
+def Chunk = (strt :: Addr, siz :: Size) {
+    let allocated = mut false
+
+    def forget = () -> {}
+    def view_as[T] = () -> {}
+
+    def apply = (off :: Size) -> {}
+    def apply = (off :: Size, siz :: Size) -> {}
+
+    static drop = () -> {}
+}
+
+@explicit
+def Chunk1[T] = Chunk :: (strt :: Addr) -> {
+    super(strt, T.size)
+    
+}
+
+def alloc = (n :: Size) -> {
+    # TODO: Allocate 'n' bytes of memory
+
+    let chnk = mut Chunk(0.Addr, 0)
+    chnk.allocated = true
+    chnk
+}
+
+def alloc[T] = (n :: Size) -> alloc(T.size * n)
+
+# TODO: Should return a 'Chunk1' not a Chunk
+def valloc[T] = (T :: elem) -> {
+    let chnk = mut alloc(T.size)
+    chnk.view_as[T] = elem
+    chnk
+}

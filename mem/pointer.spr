@@ -1,0 +1,27 @@
+mod std:mem
+
+use std:sys:I8
+
+def PointerBase[T] = {
+
+}
+def Pointer[T] = PointerBase[T] :: {
+    
+    def deref = () -> {}
+}
+def Pointer[mut T] = PointerBase[T] :: {
+
+    def deref = () -> mut super.deref
+}
+def Pointer[T*] = PointerBase[T*] ::  {}
+def Pointer[mut T*] = PointerBase[T*] :: {}
+
+##
+Function to create a Pointer[T], which doesn't allow mutating the pointed object
+##
+def calloc[T] = (T) -> {}
+
+##
+Function to create a Pointer[mut T], which allows mutating the pointed object
+##
+def malloc[T] = (T) -> {}

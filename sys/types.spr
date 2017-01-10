@@ -1,0 +1,17 @@
+mod std:sys
+
+##
+This header provides a set of byte types for system usage.
+##
+
+@compiler_intrinsic
+def I64 :: Num = {}
+
+@compiler_intrinsic
+def I32 :: Num = {}
+
+@compiler_intrinsic
+def I16 :: Num = {}
+
+@compiler_intrinsic
+def I8 :: Num = {}

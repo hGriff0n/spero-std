@@ -1,5 +1,0 @@
-mod std:util
-
-def Tree[T] = {
-    use Iterable[T]
-}

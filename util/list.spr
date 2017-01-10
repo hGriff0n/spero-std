@@ -7,10 +7,12 @@ def List[T] = {
     let ls :: mut Node[T] = Sentinel
     let siz = mut 0
 
-    def get = (i :: Size) {
+    impls Indexable[Size, T]
+    def apply = (i :: Size) {
 
     }
 
+    # NOTE: This syntax isn't currently supported (won't be in the correct scope)
     @mutable {
         def set = (i :: Size, v :: T) {
 

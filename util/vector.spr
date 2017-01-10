@@ -9,13 +9,14 @@ def Vector[T] = (capacity :: mut Size) {
     let iter = mut false
 
     # Implement Indexable methods
-    def get = (i :: Size) {
+    def apply = (i :: Size) {
         if i < siz arr.at(i)
         else Error("Out of range")
     }
 
     # Apply the mutable annotation to all the "enclosed" functions
         # The functions are still declared in the type scope
+        # NOTE: This syntax is not currently supported (methods won't be in the correct scope)
     @mutable {
         def set = (i :: Size, v :: T) {
             if i < siz arr.set(i, v)

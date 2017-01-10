@@ -6,15 +6,14 @@ use std:adt:*
 # Array
 @primary(explicit)
 def Array[T] = (n :: Size) {
-    use Seq[T]
-
     #let arr = mut mem:alloc[mut T](n)      # Which one gives the correct mutability characteristics
     #let arr = mem:alloc[mut T](n)
     let arr = mut mem:alloc[T](n)           # Allocate space for n T's
     @todo("What should the behavior of 'mem:alloc' be in regards to initialization ???")
 
     # Implementing Indexable methods
-    def get = (i :: Size) {
+    impls Indexable[Size, T]
+    def apply = (i :: Size) {
         if i < n Ok(arr.sub(i))
         else Error("Out of range")
     }
@@ -31,10 +30,7 @@ def Array[T] = (n :: Size) {
     }
 
     # Implementing Iterable methods
-    def iter = () -> ArrayIter
-    def len = () -> arr.size / T.size
-
-    def ArrayIter = Iterator[T]{
+    def iter = () -> Iterator[T] ::: {
         let cur = mut arr.sub(0)
         let end = arr.end
 
@@ -50,9 +46,10 @@ def Array[T] = (n :: Size) {
                 Error("Attempt to call next on exhausted iterator")
         }
     }
+    def len = () -> arr.size / T.size
 
     # Note: This doesn't collide with Array[T, n]:new(T*)
-    static new = (vals :: T*) -> Array[T] {
+    static new = (vals :: T*) -> Array[T] ::: {
         let arr = mem:calloc(vals)          # Copy-allocate vals
     }
 }

@@ -13,7 +13,7 @@ def Iterator[T] = {
 def Indexable[K, V] = {
     #let at :: (K) -> Result[V&]             # set and get can be implemented in terms of at (just need a way to specify at in child types)
 
-    def get :: (K) -> Result[V]              # Handle regular indexing
+    def apply :: (K) -> Result[V]              # Handle regular indexing
 
     @mutable
     def set :: (K, V) -> Result[V]           # Handle mutable indexing
@@ -37,4 +37,8 @@ def Seq[T] = {
 def Map[K, V] = {
     use Iterable[(K, V)]
     use Indexable[K, V]
+}
+
+def Tree[T] = {
+    use Iterable[T]
 }

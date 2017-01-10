@@ -1,0 +1,85 @@
+mod std:math
+
+@cfg(TAU_RULES)
+def pi[T] = tau[T] / 2
+
+@cfg(PI_RULES)
+def pi[T] = T(3.1415)
+
+@cfg(TAU_RULES)
+def tau[T] = T(6.283)
+
+@cfg(PI_RULES)
+def tau[T] = pi[T] * 2
+
+
+def e[T] = T(2.19)
+
+## Java std.math
+abs
+cube root
+ceil
+copySign
+exp
+expm1 "e^x - 1"
+floor
+getExponent
+IEEEremainder
+log
+log10
+log1p "return the natural logarithm of arg + 1"
+max
+min
+nextAfter
+nextUp
+pow
+random
+rint
+round
+sca1b "d * 2^scaleFactor"
+signum
+sqrt
+toDegrees
+toRadians
+ulp
+##
+
+## Python math
+factorial
+fmod
+frexp "(mantissa, exponent)"
+fsum
+gcd
+isclose
+isfinite
+isinf
+isnan
+ldexp
+modf
+trunc
+log2
+erf
+erfc
+gamma
+lgamma
+pi
+e
+tau
+inf
+nan
+##
+
+## C++ math
+tgamma
+nearbyint
+scalbn
+fpclassify
+isnormal
+signbit
+isgreater
+isgreatereq ...
+isunordered
+HUGE_VAL
+INFINITY
+MAX VALUE
+##

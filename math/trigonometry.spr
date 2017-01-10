@@ -1,0 +1,13 @@
+mod std:math
+
+def acos = () -> {}
+def asin = () -> {}
+def atan = () -> {}
+def atan2 = () -> {}
+def cos = () -> {}
+def cosh = () -> {}
+def hypot = () -> {}
+def sin = () -> {}
+def sinh = () -> {}
+def tan = () -> {}
+def tanh = () -> {}
